@@ -1,0 +1,44 @@
+{
+  "name": "proxy-diff",
+  "displayName": "ProxyDiff",
+  "version": "0.0.1",
+  "description": "A Chrome extension that shows upgrade diffs for proxy contracts",
+  "author": "pradeep-selva",
+  "scripts": {
+    "dev": "plasmo dev",
+    "build": "plasmo build",
+    "package": "plasmo package"
+  },
+  "dependencies": {
+    "plasmo": "0.90.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "@plasmohq/messaging": "0.6.2",
+    "@plasmohq/storage": "1.13.0"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.0.268",
+    "@types/node": "20.14.10",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "typescript": "5.5.3"
+  },
+  "manifest": {
+    "host_permissions": [
+      "https://etherscan.io/*",
+      "https://*.etherscan.io/*",
+      "https://api.etherscan.io/*",
+      "https://cloudflare-eth.com/*",
+      "https://rpc.ankr.com/*"
+    ],
+    "permissions": [
+      "storage",
+      "tabs",
+      "sidePanel",
+      "activeTab"
+    ],
+    "side_panel": {
+      "default_path": "sidepanel.html"
+    }
+  }
+}

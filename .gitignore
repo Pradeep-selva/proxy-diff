@@ -1,2 +1,7 @@
 *.md
 !README.md
+node_modules/
+build/
+.plasmo/
+.env
+

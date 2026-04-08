@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+}
+
+.proxydiff-root {
+  width: 100%;
+  min-height: 100vh;
+  background: #0f0f10;
+  color: #e2e8f0;
+}
