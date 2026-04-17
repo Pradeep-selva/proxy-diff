@@ -66,3 +66,18 @@ export async function eth_getLogs(
     },
   ])
 }
+
+// Extracts a 20-byte address from a 32-byte slot value.
+// Returns null for zero address or malformed input.
+export function parseAddress(hexValue: string): string | null {
+  const hex = hexValue.startsWith("0x") ? hexValue.slice(2) : hexValue
+  if (hex.length < 40) return null
+  const address = "0x" + hex.slice(-40).toLowerCase()
+  if (address === "0x" + "0".repeat(40)) return null
+  if (!/^0x[0-9a-f]{40}$/.test(address)) return null
+  return address
+}
+
+export function hexToNumber(hex: string): number {
+  return parseInt(hex, 16)
+}
