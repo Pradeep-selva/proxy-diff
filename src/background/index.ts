@@ -44,3 +44,9 @@ chrome.tabs.onActivated.addListener(({ tabId }) => {
     void syncTab(tabId, tab.url)
   })
 })
+
+chrome.runtime.onMessage.addListener((message, sender) => {
+  if (message?.name === "open-panel" && sender.tab?.id !== undefined) {
+    chrome.sidePanel.open({ tabId: sender.tab.id }).catch(() => {})
+  }
+})
