@@ -24,6 +24,8 @@ export const CHAIN_CONFIGS: Record<number, ChainConfig> = {
   },
 }
 
+export const NOT_A_PROXY_MESSAGE = "This contract is not an upgradeable proxy."
+
 export const ETHERSCAN_ADDRESS_PATTERN = /\/address\/(0x[0-9a-fA-F]{40})/i
 
 export const ETHERSCAN_HOSTNAME_TO_CHAIN_ID: Record<string, number> = {

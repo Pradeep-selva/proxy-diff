@@ -1,6 +1,6 @@
 import type { PlasmoMessaging } from "@plasmohq/messaging"
 import type { AbiEntry, GetDiffRequest, GetDiffResponse } from "~types"
-import { CHAIN_CONFIGS } from "~constants"
+import { CHAIN_CONFIGS, NOT_A_PROXY_MESSAGE } from "~constants"
 import { detectProxy } from "~lib/proxy-detector"
 import { resolveImplementationHistory } from "~lib/upgrade-history"
 import { fetchBothAbis } from "~lib/abi-fetcher"
@@ -22,7 +22,7 @@ const handler: PlasmoMessaging.MessageHandler<
   try {
     const status = await detectProxy(proxyAddress, config)
     if (!status.isProxy) {
-      res.send({ ok: false, error: "This contract is not an upgradeable proxy." })
+      res.send({ ok: false, error: NOT_A_PROXY_MESSAGE })
       return
     }
 

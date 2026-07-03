@@ -1,12 +1,234 @@
+:root {
+  --pd-bg: #0f0f10;
+  --pd-surface: #17171a;
+  --pd-border: #2a2a30;
+  --pd-text: #e2e8f0;
+  --pd-muted: #8b8b96;
+  --pd-accent: #2172e5;
+  --pd-added: #3fb950;
+  --pd-removed: #f85149;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 14px;
 }
 
-.proxydiff-root {
+.pd-root {
   width: 100%;
   min-height: 100vh;
-  background: #0f0f10;
-  color: #e2e8f0;
+  background: var(--pd-bg);
+  color: var(--pd-text);
+  box-sizing: border-box;
+}
+
+.pd-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--pd-border);
+  position: sticky;
+  top: 0;
+  background: var(--pd-bg);
+}
+
+.pd-logo {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.pd-header-addr {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  color: var(--pd-accent);
+  text-decoration: none;
+}
+
+.pd-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 48px 24px;
+}
+
+.pd-state-icon {
+  font-size: 28px;
+}
+
+.pd-state-title {
+  margin: 0;
+  font-weight: 600;
+}
+
+.pd-state-sub {
+  margin: 0;
+  color: var(--pd-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.pd-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--pd-border);
+  border-top-color: var(--pd-accent);
+  border-radius: 50%;
+  animation: pd-spin 0.8s linear infinite;
+}
+
+@keyframes pd-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.pd-btn {
+  margin-top: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--pd-accent);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pd-proxyinfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border-bottom: 1px solid var(--pd-border);
+}
+
+.pd-impl-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pd-impl-label {
+  width: 72px;
+  color: var(--pd-muted);
+  font-size: 12px;
+}
+
+.pd-impl-addr {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  color: var(--pd-accent);
+  text-decoration: none;
+}
+
+.pd-badge-warn {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #d29922;
+  border: 1px solid #d29922;
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
+.pd-summary {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  flex-wrap: wrap;
+}
+
+.pd-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.pd-pill-added {
+  color: var(--pd-added);
+  background: rgba(63, 185, 80, 0.12);
+}
+
+.pd-pill-removed {
+  color: var(--pd-removed);
+  background: rgba(248, 81, 73, 0.12);
+}
+
+.pd-pill-unchanged {
+  color: var(--pd-muted);
+  background: rgba(139, 139, 150, 0.12);
+}
+
+.pd-nochanges {
+  padding: 16px;
+  color: var(--pd-muted);
+  font-size: 13px;
+}
+
+.pd-section {
+  border-bottom: 1px solid var(--pd-border);
+}
+
+.pd-section-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  color: var(--pd-text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+}
+
+.pd-section-caret {
+  color: var(--pd-muted);
+}
+
+.pd-section-body {
+  padding: 0 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pd-entry {
+  display: flex;
+  gap: 8px;
+  padding: 4px 8px;
+  border-left: 3px solid transparent;
+  border-radius: 0 4px 4px 0;
+}
+
+.pd-entry-added {
+  border-left-color: var(--pd-added);
+  background: rgba(63, 185, 80, 0.08);
+}
+
+.pd-entry-removed {
+  border-left-color: var(--pd-removed);
+  background: rgba(248, 81, 73, 0.08);
+}
+
+.pd-entry-unchanged {
+  border-left-color: var(--pd-border);
+}
+
+.pd-entry-prefix {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--pd-muted);
+}
+
+.pd-entry-sig {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  word-break: break-all;
 }
