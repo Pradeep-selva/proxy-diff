@@ -232,3 +232,44 @@ body {
   font-size: 12px;
   word-break: break-all;
 }
+
+.pd-options {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 100vh;
+}
+
+.pd-options-title {
+  font-size: 18px;
+  margin: 0 0 16px;
+}
+
+.pd-options-label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pd-input {
+  padding: 8px 10px;
+  font-size: 13px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--pd-text);
+  background: var(--pd-surface);
+  border: 1px solid var(--pd-border);
+  border-radius: 6px;
+}
+
+.pd-options-hint {
+  font-size: 12px;
+  color: var(--pd-muted);
+  line-height: 1.5;
+  margin: 4px 0 12px;
+}
+
+.pd-options .pd-btn {
+  align-self: flex-start;
+}
