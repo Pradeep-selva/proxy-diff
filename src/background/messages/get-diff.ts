@@ -6,6 +6,7 @@ import { resolveImplementationHistory } from "~lib/upgrade-history"
 import { fetchBothAbis } from "~lib/abi-fetcher"
 import { diffAbis } from "~lib/abi-diff"
 import { getApiKey } from "~lib/settings"
+import { isAddress, normalizeAddress } from "~lib/rpc"
 
 const handler: PlasmoMessaging.MessageHandler<
   GetDiffRequest,
@@ -14,13 +15,15 @@ const handler: PlasmoMessaging.MessageHandler<
   const { proxyAddress, chainId } = req.body ?? {}
   const config = chainId ? CHAIN_CONFIGS[chainId] : undefined
 
-  if (!proxyAddress || !config) {
-    res.send({ ok: false, error: "Unsupported network or missing address." })
+  if (!proxyAddress || !isAddress(proxyAddress) || !config) {
+    res.send({ ok: false, error: "Unsupported network or invalid address." })
     return
   }
 
+  const normalized = normalizeAddress(proxyAddress)
+
   try {
-    const status = await detectProxy(proxyAddress, config)
+    const status = await detectProxy(normalized, config)
     if (!status.isProxy) {
       res.send({ ok: false, error: NOT_A_PROXY_MESSAGE })
       return
@@ -28,7 +31,7 @@ const handler: PlasmoMessaging.MessageHandler<
 
     const apiKey = await getApiKey()
     const history = await resolveImplementationHistory(
-      proxyAddress,
+      normalized,
       status.currentImpl,
       config,
       apiKey

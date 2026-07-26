@@ -3,6 +3,7 @@ import type { CheckProxyRequest, CheckProxyResponse } from "~types"
 import { CHAIN_CONFIGS } from "~constants"
 import { detectProxy } from "~lib/proxy-detector"
 import { getCached, setCached } from "~lib/cache"
+import { isAddress, normalizeAddress } from "~lib/rpc"
 
 const handler: PlasmoMessaging.MessageHandler<
   CheckProxyRequest,
@@ -11,12 +12,13 @@ const handler: PlasmoMessaging.MessageHandler<
   const { address, chainId } = req.body ?? {}
   const config = chainId ? CHAIN_CONFIGS[chainId] : undefined
 
-  if (!address || !config) {
+  if (!address || !isAddress(address) || !config) {
     res.send({ isProxy: false })
     return
   }
 
-  const cacheKey = `proxy:${chainId}:${address.toLowerCase()}`
+  const normalized = normalizeAddress(address)
+  const cacheKey = `proxy:${chainId}:${normalized}`
   const cached = await getCached<CheckProxyResponse>(cacheKey)
   if (cached) {
     res.send(cached)
@@ -24,7 +26,7 @@ const handler: PlasmoMessaging.MessageHandler<
   }
 
   try {
-    const status = await detectProxy(address, config)
+    const status = await detectProxy(normalized, config)
     await setCached(cacheKey, status)
     res.send(status)
   } catch {

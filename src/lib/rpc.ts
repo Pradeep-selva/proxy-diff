@@ -67,6 +67,14 @@ export async function eth_getLogs(
   ])
 }
 
+export function isAddress(value: string): boolean {
+  return /^0x[0-9a-fA-F]{40}$/.test(value)
+}
+
+export function normalizeAddress(value: string): string {
+  return value.toLowerCase()
+}
+
 export function parseAddress(hexValue: string): string | null {
   const hex = hexValue.startsWith("0x") ? hexValue.slice(2) : hexValue
   if (hex.length < 40) return null

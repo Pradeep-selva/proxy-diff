@@ -140,7 +140,7 @@ function Result({
         }}
         baseUrl={baseUrl}
       />
-      {diff && diff.currentImplVerified ? (
+      {diff && diff.currentImplVerified && diff.previousImplVerified ? (
         <>
           <DiffSummary diff={diff} />
           <DiffSection title="Functions" section={diff.functions} />
@@ -149,7 +149,9 @@ function Result({
         </>
       ) : (
         <p className="pd-nochanges">
-          Current implementation is unverified on Etherscan — diff unavailable.
+          {!diff?.currentImplVerified
+            ? "Current implementation is unverified on Etherscan — diff unavailable."
+            : "Previous implementation is unverified on Etherscan — diff unavailable."}
         </p>
       )}
     </>
